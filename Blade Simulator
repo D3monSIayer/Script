@@ -1,0 +1,149 @@
+getgenv().sword = false;
+getgenv().aura = false;
+getgenv().Egg = false;
+getgenv().Chest = false;
+
+local remotepath = game:GetService("ReplicatedStorage");
+
+
+
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
+
+local w = library:CreateWindow("blade simulator") -- Creates the window
+
+local b = w:CreateFolder("Autobuy") -- Creates the folder(U will put here your buttons,etc)
+
+local c = w:CreateFolder("EGG")
+
+local d = w:CreateFolder("Chest")
+
+b:Toggle("sword",function(bool)
+    getgenv().sword = bool
+    if  bool then
+      buysword();
+   end
+end)
+
+
+b:Toggle("aura",function(bool)
+    getgenv().aura = bool
+    if bool then
+     buyaura();
+   end
+end)
+
+
+
+b:DestroyGui()
+
+
+
+c:Toggle("Common",function(bool)
+    getgenv().Egg = bool
+    if bool then
+     buyEgg("Common Egg");
+   end
+end)
+
+c:Toggle("rare",function(bool)
+    getgenv().Egg = bool
+    if bool then
+     buyEgg("Rare Egg");
+   end
+end)
+
+
+
+
+c:Toggle("Epic",function(bool)
+    getgenv().Egg = bool
+    if bool then
+     buyEgg("Epic Egg");
+   end
+end)
+
+c:Toggle("Legendary",function(bool)
+    getgenv().Egg = bool
+    if bool then
+     buyEgg("Legendary Egg");
+   end
+end)
+
+
+c:Toggle("Mythic",function(bool)
+    getgenv().Egg = bool
+    if bool then
+     buyEgg("Mythic Egg");
+   end
+end)
+
+
+
+c:Toggle("Exotic",function(bool)
+    getgenv().Egg = bool
+    if bool then
+     buyEgg("Exotic Egg");
+   end
+end)
+
+
+
+
+c:Toggle("Radiant",function(bool)
+    getgenv().Egg = bool
+    if bool then
+     buyEgg("Radiant Egg");
+   end
+end)
+
+
+
+d:Toggle("Common",function(bool)
+    getgenv().Chest = bool
+    if bool then
+     buyChest("Common Chest");
+   end
+end)
+
+
+function buyaura()
+    spawn(function()
+        while aura == true do
+            remotepath.Remotes.Shop.BuyAllAuras:InvokeServer()
+            wait()
+        end
+    end)
+end
+
+function buysword()
+    spawn(function()
+        while  sword == true do
+                remotepath.Remotes.Shop.BuyAllWeapons:InvokeServer()
+                wait()
+        end
+    end)
+end
+
+
+function buyEgg(eggtype)
+    spawn (function()
+        while wait() do
+        if not Egg then break end;
+            local args = {[1] = (eggtype),[2] = 1}
+
+            game:GetService("ReplicatedStorage").Remotes.Eggs.OpenEgg:InvokeServer(unpack(args))
+            
+        end
+    end)
+end
+
+
+function buyChest(Chesttype)
+    spawn (function()
+        while wait() do
+        if not Chest then break end;
+            local args = {[1] = (Chesttype),[2] = 1}
+            remotepath.Remotes.Chests.OpenChest:InvokeServer(unpack(args))          
+        end
+    end)
+end
